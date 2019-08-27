@@ -1,6 +1,5 @@
 package br.com.sabino.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.io.Serializable;
@@ -10,13 +9,17 @@ import java.util.UUID;
 @Setter
 @Builder
 @EqualsAndHashCode
+@NoArgsConstructor
 @AllArgsConstructor
 public class Beer implements Serializable {
-    @JsonIgnore
     private UUID id;
     private String name;
     private String ibu;
     private String style;
     private String description;
     private String alcoholTenor;
+
+    public void randomUUID() {
+        setId(UUID.randomUUID());
+    }
 }
