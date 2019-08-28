@@ -1,0 +1,13 @@
+feign:
+  beer-client:
+    url: ${BEER_CLIENT:http://localhost:8082/api/beer}
+
+stubrunner:
+  ids: 'br.com.sabino:spring-boot-cdc-rest-api:+:8082'
+  stubs-mode: local
+spring:
+  application:
+    name: stub-runner
+  cloud:
+    stream:
+      default-binder: rabbit

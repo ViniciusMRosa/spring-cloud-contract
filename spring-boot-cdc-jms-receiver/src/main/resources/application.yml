@@ -1,5 +1,5 @@
-stubrunner:
-  amqp:
-    enabled: true
+feign:
+  beer-client:
+    url: ${BEER_CLIENT:http://localhost:8082/api/beer}
 server:
-  port: 8081
+  port: ${PORT:8081}

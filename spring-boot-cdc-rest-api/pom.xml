@@ -74,7 +74,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-contract-verifier</artifactId>
-            <version>2.1.1.RELEASE</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -84,10 +83,10 @@
             <plugin>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-                <version>2.1.1.RELEASE</version>
+                <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <baseClassForTests> br.com.sabino.BeerApiBase</baseClassForTests>
+                    <baseClassForTests>br.com.sabino.BeerApiBase</baseClassForTests>
                 </configuration>
             </plugin>
         </plugins>
@@ -100,7 +99,6 @@
             <url>https://springcloudcontract.jfrog.io/springcloudcontract/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -112,7 +110,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <repositories>
         <repository>
             <id>spring-snapshots</id>

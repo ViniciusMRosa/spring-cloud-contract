@@ -1,12 +1,12 @@
 package br.com.sabino.contract;
 
+import br.com.sabino.application.jms.BeerMessageReceiver;
 import br.com.sabino.domain.entities.Beer;
-import br.com.sabino.domain.repository.BeerRepository;
-import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.stubrunner.StubTrigger;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.test.annotation.DirtiesContext;
@@ -14,21 +14,28 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.UUID;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @DirtiesContext
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@AutoConfigureStubRunner(stubsMode = StubRunnerProperties.StubsMode.LOCAL, ids = "br.com.sabino:spring-boot-cdc-rest-api:+:8082")
-public class BeerClientTest {
+@AutoConfigureStubRunner(ids = "br.com.sabino:spring-boot-cdc-jms-producer:+", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
+public class BeerListenerTest {
 
     @Autowired
-    private BeerRepository beerRepository;
+    private StubTrigger stubTrigger;
+
+    @Autowired
+    private BeerMessageReceiver messageReceiver;
 
     @Test
-    public void shouldCreateBeerCompliesToContract() {
-        var opaBier = Beer.builder()
+    public void shouldReceiveNotification() {
+        stubTrigger.trigger("opa_bier");
+
+        //arrange
+        final var opaBier = Beer.builder()
                 .id(UUID.fromString("d25a125a-6b03-407a-b90a-cfe1ecaf1dfb"))
                 .alcoholTenor("6,1%")
                 .description("Na cerveja IPA Opa Bier artesanal, para atingir o equilíbrio entre aroma e amargor, a Opa Bier harmoniza 3 lúpulos especiais nessa receita de sabor intenso e cítrico.")
@@ -37,13 +44,15 @@ public class BeerClientTest {
                 .name("India Pale Ale Opa Bier")
                 .build();
 
-        var opaBierResponseSent = beerRepository.saveBeer(opaBier);
+        //act
+        final var producedBeer = messageReceiver.handle(opaBier);
 
-        MatcherAssert.assertThat(opaBier.getId(), is(equalTo(opaBierResponseSent.getId())));
-        MatcherAssert.assertThat(opaBier.getName(), is(equalTo(opaBierResponseSent.getName())));
-        MatcherAssert.assertThat(opaBier.getAlcoholTenor(), is(equalTo(opaBierResponseSent.getAlcoholTenor())));
-        MatcherAssert.assertThat(opaBier.getIbu(), is(equalTo(opaBierResponseSent.getIbu())));
-        MatcherAssert.assertThat(opaBier.getStyle(), is(equalTo(opaBierResponseSent.getStyle())));
-        MatcherAssert.assertThat(opaBier.getDescription(), is(equalTo(opaBierResponseSent.getDescription())));
+        //assert
+        assertThat(opaBier.getId(), is(equalTo(producedBeer.getId())));
+        assertThat(opaBier.getName(), is(equalTo(producedBeer.getName())));
+        assertThat(opaBier.getAlcoholTenor(), is(equalTo(producedBeer.getAlcoholTenor())));
+        assertThat(opaBier.getIbu(), is(equalTo(producedBeer.getIbu())));
+        assertThat(opaBier.getStyle(), is(equalTo(producedBeer.getStyle())));
+        assertThat(opaBier.getDescription(), is(equalTo(producedBeer.getDescription())));
     }
 }

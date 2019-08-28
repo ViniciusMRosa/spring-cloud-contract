@@ -1,7 +1,7 @@
 package br.com.sabino.domain.services;
 
 import br.com.sabino.domain.entities.Beer;
-import br.com.sabino.domain.repository.BeerRepository;
+import br.com.sabino.domain.client.BeerClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class BeerService {
 
-    private final BeerRepository beerRepository;
+    private final BeerClient beerClient;
 
-    public void sendMessageToClient(Beer beer) {
-        beerRepository.saveBeer(beer);
+    public Beer produceBeerFromClient(Beer beer) {
+        return beerClient.send(beer);
+    }
+
+    public Beer sendNotification(Beer beer) {
+        return beer;
     }
 }

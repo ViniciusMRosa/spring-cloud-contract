@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
@@ -20,10 +21,15 @@ public class Beer {
 
     @Id
     private UUID id;
+    @NotNull
     private String name;
+    @NotNull
     private String ibu;
+    @NotNull
     private String style;
+    @NotNull
     private String description;
+    @NotNull
     private String alcoholTenor;
 
     public void randomUUID() {

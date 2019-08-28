@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Validated
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class BeerController {
     private final BeerService service;
 
     @PostMapping
-    public ResponseEntity<Beer> create(@RequestBody Beer beerRequest) {
+    public ResponseEntity<Beer> create(@Valid @RequestBody Beer beerRequest) {
         return new ResponseEntity<>(service.create(beerRequest), HttpStatus.CREATED);
     }
 }
