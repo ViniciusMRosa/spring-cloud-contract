@@ -32,9 +32,8 @@ public class BeerApiBase {
     @Before
     public void setup() {
         var beer = Beer.builder()
-                .id(UUID.fromString("d25a125a-6b03-407a-b90a-cfe1ecaf1dfb"))
                 .alcoholTenor("6,1%")
-                .description("Na cerveja IPA Opa Bier artesanal, para atingir o equilíbrio entre aroma e amargor, a Opa Bier harmoniza 3 lúpulos especiais nessa receita de sabor intenso e cítrico.")
+                .description("Na cerveja IPA Opa Bier artesanal, para atingir o equilibrio entre aroma e amargor, a Opa Bier harmoniza 3 lupulos especiais nessa receita de sabor intenso e citrico.")
                 .ibu("37")
                 .style("India Pale Ale")
                 .name("India Pale Ale Opa Bier")

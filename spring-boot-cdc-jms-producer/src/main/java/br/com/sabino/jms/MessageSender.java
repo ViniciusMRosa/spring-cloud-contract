@@ -1,20 +1,18 @@
 package br.com.sabino.jms;
 
 import br.com.sabino.domain.entities.Beer;
-import lombok.AllArgsConstructor;
-import org.springframework.amqp.core.AmqpTemplate;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MessageSender {
 
-    public static final String QUEUE_BEER = "queue.beer";
-    public static final String BLANK = "";
-
-    private AmqpTemplate amqpTemplate;
+    private final Source source;
 
     public void sendNotification(Beer beer) {
-        amqpTemplate.convertAndSend(QUEUE_BEER, BLANK, beer);
+        this.source.output().send(MessageBuilder.withPayload(beer).build());
     }
 }

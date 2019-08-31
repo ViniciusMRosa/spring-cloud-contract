@@ -12,7 +12,6 @@ public class BeerService {
     private final MessageSender messageSender;
 
     public Beer create(Beer beer) {
-        beer.randomUUID();
         messageSender.sendNotification(beer);
         return beer;
     }

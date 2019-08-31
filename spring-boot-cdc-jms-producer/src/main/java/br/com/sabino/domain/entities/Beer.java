@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -13,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Beer implements Serializable {
 
-    private UUID id;
+    private int id;
     @NotNull
     private String name;
     @NotNull
@@ -24,8 +23,4 @@ public class Beer implements Serializable {
     private String description;
     @NotNull
     private String alcoholTenor;
-
-    public void randomUUID() {
-        setId(UUID.randomUUID());
-    }
 }
