@@ -4,8 +4,8 @@
 
  From the command line do:
 ```shell
-$ git clone https://github.com/RicardoSabinolrs/spring-boot-cdc-jms-producer.git
-$ cd spring-boot-cdc-jms-producer/
+$ git clone https://github.com/RicardoSabinolrs/spring-boot-cdc-amqp-producer.git
+$ cd spring-boot-cdc-amqp-producer/
 $ mvn clean install -U
 ```
 > :dart: You can access the API documentation via browser: http://localhost:8080/swagger-ui.html
