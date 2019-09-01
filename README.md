@@ -25,8 +25,8 @@ $ curl -X POST "http://localhost:8080/api/beer" -H "accept: */*" -H "Content-Typ
 ```
 
 Microservices 
-- [spring-boot-cdc-jms-producer](https://github.com/RicardoSabinolrs/spring-cloud-contract/tree/master/spring-boot-cdc-jms-producer)
-- [spring-boot-cdc-jms-receiver](https://github.com/RicardoSabinolrs/spring-cloud-contract/tree/master/spring-boot-cdc-jms-receiver)
+- [spring-boot-cdc-jms-producer](https://github.com/RicardoSabinolrs/spring-cloud-contract/tree/master/spring-boot-cdc-amqp-producer)
+- [spring-boot-cdc-jms-consumer](https://github.com/RicardoSabinolrs/spring-cloud-contract/tree/master/spring-boot-cdc-amqp-consumer)
 - [spring-boot-cdc-rest-api](https://github.com/RicardoSabinolrs/spring-cloud-contract/tree/master/spring-boot-cdc-rest-api)
 
 ![Alt text](docs/services.jpg?raw=true "Title")
