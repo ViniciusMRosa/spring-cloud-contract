@@ -1,0 +1,21 @@
+server.port: ${PORT:8081}
+
+spring:
+  rabbitmq:
+    host: ${AMQT_HOST:localhost}
+    port: ${AMQT_PORT:5672}
+    username: ${AMQT_USER:guest}
+    password: ${AMQT_PASSWORD:guest}
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: ${AMQT_ROUTE_DESTINATION:product-process}
+          group: ${AMQT_ROUTE_GROUP:product-queue}
+feign:
+  beer-client:
+    url: ${BEER_CLIENT:http://localhost:8082/api/beer}
+
+logging:
+  level:
+    org.springframework.cloud: debug

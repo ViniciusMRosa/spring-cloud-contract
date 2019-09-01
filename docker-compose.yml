@@ -26,7 +26,7 @@ services:
       - activemq
   jms-receiver:
     build:
-      context: ./spring-boot-cdc-jms-receiver
+      context: spring-boot-cdc-amqp-consumer
       dockerfile: Dockerfile
     image: sabinolab/spring-boot-cdc-jms-receiver
     container_name: jms-receiver
