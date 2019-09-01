@@ -1,22 +1,19 @@
 package br.com.sabino.domain.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
-
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.UUID;
 
 @Data
 @Builder
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Beer implements Serializable {
+public class Beer {
 
-    private UUID id;
+    private int id;
     @NotNull
     private String name;
     @NotNull
@@ -27,8 +24,4 @@ public class Beer implements Serializable {
     private String description;
     @NotNull
     private String alcoholTenor;
-
-    public void randomUUID() {
-        setId(UUID.randomUUID());
-    }
 }

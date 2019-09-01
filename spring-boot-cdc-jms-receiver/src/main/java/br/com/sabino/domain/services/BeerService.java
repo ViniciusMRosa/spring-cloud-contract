@@ -1,21 +1,21 @@
 package br.com.sabino.domain.services;
 
-import br.com.sabino.domain.entities.Beer;
 import br.com.sabino.domain.client.BeerClient;
-import lombok.AllArgsConstructor;
+import br.com.sabino.domain.entities.Beer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BeerService {
 
     private final BeerClient beerClient;
 
-    public Beer produceBeerFromClient(Beer beer) {
-        return beerClient.send(beer);
+    public Beer processor(Beer beer) {
+        return beer;
     }
 
-    public Beer sendNotification(Beer beer) {
-        return beer;
+    public Beer sendBeerFromClient(Beer beer) {
+        return beerClient.send(beer);
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +17,7 @@ public class BeerController {
     private final BeerService service;
 
     @GetMapping("/{id}")
-    public Beer getOne(@PathVariable("id") UUID id) {
+    public Beer getOne(@PathVariable("id") Integer id) {
         return service.findOne(id);
     }
 

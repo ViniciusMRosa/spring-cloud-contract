@@ -1,9 +1,12 @@
+server:
+  port: ${PORT:8080}
+
 spring:
-  application.name: beer-api-producer
-  cloud.stream.bindings.output:
-    content-type: application/json
-    destination: queue-beer
-server.port: ${PORT:8080}
+  cloud:
+    stream:
+      bindings:
+        product-channel:
+          destination: product-process
 
 logging:
   level:

@@ -9,10 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -20,10 +19,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @DirtiesContext
-@AutoConfigureStubRunner
+@AutoConfigureStubRunner(ids = "br.com.sabino:spring-boot-cdc-rest-api:+:8082", stubsMode = StubRunnerProperties.StubsMode.LOCAL)
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class BeerServiceProduceTest {
+public class BeerClientTest {
 
     @Autowired
     private BeerService service;
@@ -36,9 +35,9 @@ public class BeerServiceProduceTest {
 
         //arrange
         final var opaBier = Beer.builder()
-                .id(UUID.fromString("d25a125a-6b03-407a-b90a-cfe1ecaf1dfb"))
+                .id(1)
                 .alcoholTenor("6,1%")
-                .description("Na cerveja IPA Opa Bier artesanal, para atingir o equilíbrio entre aroma e amargor, a Opa Bier harmoniza 3 lúpulos especiais nessa receita de sabor intenso e cítrico.")
+                .description("Na cerveja IPA Opa Bier artesanal, para atingir o equilibrio entre aroma e amargor, a Opa Bier harmoniza 3 lupulos especiais nessa receita de sabor intenso e citrico.")
                 .ibu("37")
                 .style("India Pale Ale")
                 .name("India Pale Ale Opa Bier")
@@ -47,7 +46,7 @@ public class BeerServiceProduceTest {
         when(client.send(any(Beer.class))).thenReturn(opaBier);
 
         //act
-        final var producedBeer = service.produceBeerFromClient(opaBier);
+        final var producedBeer = service.sendBeerFromClient(opaBier);
 
         //assert
         assertThat(opaBier.getId(), is(equalTo(producedBeer.getId())));

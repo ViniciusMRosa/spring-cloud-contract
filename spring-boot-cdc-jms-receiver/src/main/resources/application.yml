@@ -1,5 +1,21 @@
+server.port: ${PORT:8081}
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: product-process
+          group: product-queue
 feign:
   beer-client:
     url: ${BEER_CLIENT:http://localhost:8082/api/beer}
-server:
-  port: ${PORT:8081}
+
+logging:
+  level:
+    org.springframework.cloud: debug

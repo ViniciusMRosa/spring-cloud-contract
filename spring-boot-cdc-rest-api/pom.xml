@@ -86,7 +86,13 @@
                 <version>${spring-cloud-contract.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <baseClassForTests>br.com.sabino.BeerApiBase</baseClassForTests>
+                    <packageWithBaseClasses>br.com.sabino</packageWithBaseClasses>
+                    <baseClassMappings>
+                        <baseClassMapping>
+                            <contractPackageRegex>.*rest.*</contractPackageRegex>
+                            <baseClassFQN>br.com.sabino.BeerApiBase</baseClassFQN>
+                        </baseClassMapping>
+                    </baseClassMappings>
                 </configuration>
             </plugin>
         </plugins>

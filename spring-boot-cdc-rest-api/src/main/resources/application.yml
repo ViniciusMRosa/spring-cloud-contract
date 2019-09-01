@@ -1,3 +1,6 @@
+server:
+  port: ${PORT:8082}
+
 spring:
   jpa:
     hibernate:
@@ -14,13 +17,6 @@ spring:
         trace: false
         web-allow-others: false
 
-# Logging
 logging:
-  pattern:
-    console: "%d{yy/MM/dd HH:mm:ss} %p [%X{message.id}] %c{1}: %m%n"
   level:
-    com.contaazul.batchscheduler: INFO
-    io.jaegertracing.internal.reporters.LoggingReporter: OFF
-
-server:
-  port: 8082
+    org.springframework.cloud: debug

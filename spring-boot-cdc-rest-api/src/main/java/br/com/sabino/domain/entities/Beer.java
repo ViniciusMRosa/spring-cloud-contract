@@ -20,7 +20,7 @@ import java.util.UUID;
 public class Beer {
 
     @Id
-    private UUID id;
+    private int id;
     @NotNull
     private String name;
     @NotNull
@@ -31,8 +31,4 @@ public class Beer {
     private String description;
     @NotNull
     private String alcoholTenor;
-
-    public void randomUUID() {
-        setId(UUID.randomUUID());
-    }
 }

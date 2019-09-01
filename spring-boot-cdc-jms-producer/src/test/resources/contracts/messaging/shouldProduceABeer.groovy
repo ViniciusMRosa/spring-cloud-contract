@@ -8,7 +8,7 @@ Contract.make {
         triggeredBy('sendNotification()')
     }
     outputMessage {
-        sentTo('queue-beer')
+        sentTo('product-process')
         body([
                 alcoholTenor: '6,1%',
                 description : 'Na cerveja IPA Opa Bier artesanal, para atingir o equilibrio entre aroma e amargor, a Opa Bier harmoniza 3 lupulos especiais nessa receita de sabor intenso e citrico.',

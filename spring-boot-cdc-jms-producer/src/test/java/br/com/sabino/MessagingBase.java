@@ -1,23 +1,26 @@
 package br.com.sabino;
 
 import br.com.sabino.domain.entities.Beer;
-import br.com.sabino.jms.MessageSender;
+import br.com.sabino.message.producer.MessageProducer;
+import br.com.sabino.message.source.RestSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.verifier.messaging.boot.AutoConfigureMessageVerifier;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.UUID;
-
+@DirtiesContext
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureMessageVerifier
 public class MessagingBase {
 
     @Autowired
-    private MessageSender messageSender;
+    private MessageProducer messageProducer;
+
+    @Autowired
+    private RestSource restSource;
 
     public void sendNotification() {
         var beer = Beer.builder()
@@ -27,6 +30,7 @@ public class MessagingBase {
                 .style("India Pale Ale")
                 .name("India Pale Ale Opa Bier")
                 .build();
-        messageSender.sendNotification(beer);
+
+        messageProducer.send(beer, restSource);
     }
 }

@@ -14,8 +14,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.UUID;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -34,7 +32,7 @@ public class BeerApiBase {
     @Before
     public void setup() {
         var beer = Beer.builder()
-                .id(UUID.fromString("d25a125a-6b03-407a-b90a-cfe1ecaf1dfb"))
+                .id(1)
                 .alcoholTenor("6,1%")
                 .description("Na cerveja IPA Opa Bier artesanal, para atingir o equilíbrio entre aroma e amargor, a Opa Bier harmoniza 3 lúpulos especiais nessa receita de sabor intenso e cítrico.")
                 .ibu("37")
@@ -43,7 +41,7 @@ public class BeerApiBase {
                 .build();
 
         when(service.create(any(Beer.class))).thenReturn(beer);
-        when(service.findOne(any(UUID.class))).thenReturn(beer);
+        when(service.findOne(any(Integer.class))).thenReturn(beer);
 
         RestAssuredMockMvc.standaloneSetup(MockMvcBuilders.standaloneSetup(beerController));
     }
