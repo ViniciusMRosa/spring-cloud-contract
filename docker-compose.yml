@@ -1,41 +1,41 @@
 version: '3.5'
 services:
-  activemq:
-    image: webcenter/activemq
+  rabbit-mq:
+    image: rabbitmq:3.6.9-management
     ports:
-      - 8161:8161
-      - 61616:61616
+      - "15672:15672"
+      - "5672:5672"
     networks:
       - sabino_network
     environment:
-      ACTIVEMQ_NAME: activemq
-      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: 'True'
-      ACTIVEMQ_ADMIN_LOGIN: admin
-      ACTIVEMQ_ADMIN_PASSWORD: admin
-  jms-producer:
+      AMQT_HOST: localhost
+      AMQT_PORT: 5672
+      AMQT_USER: guest
+      AMQT_PASSWORD: guest
+  amqp-producer:
     build:
-      context: ./spring-boot-cdc-jms-producer
+      context: ./spring-boot-cdc-amqp-producer
       dockerfile: Dockerfile
-    image: sabinolab/spring-boot-cdc-jms-producer
-    container_name: jms-producer
+    image: sabinolab/spring-boot-cdc-amqp-producer
+    container_name: amqp-producer
     ports:
       - "8080:8080"
     networks:
       - sabino_network
     depends_on:
-      - activemq
-  jms-receiver:
+      - rabbit-mq
+  amqp-consumer:
     build:
       context: spring-boot-cdc-amqp-consumer
       dockerfile: Dockerfile
-    image: sabinolab/spring-boot-cdc-jms-receiver
-    container_name: jms-receiver
+    image: sabinolab/spring-boot-cdc-amqp-consumer
+    container_name: amqp-consumer
     ports:
       - "8081:8081"
     networks:
       - sabino_network
     depends_on:
-      - activemq
+      - rabbit-mq
   rest-api:
     build:
       context: ./spring-boot-cdc-rest-api
@@ -47,7 +47,7 @@ services:
     networks:
       - sabino_network
     depends_on:
-      - activemq
+      - rabbit-mq
 
 networks:
   sabino_network:
